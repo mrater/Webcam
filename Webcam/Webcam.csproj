@@ -82,6 +82,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AForge.Video">
+      <Version>2.2.5</Version>
+    </PackageReference>
+    <PackageReference Include="AForge.Video.DirectShow">
+      <Version>2.2.5</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Forms.UI.XamlHost">
+      <Version>6.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Wpf.UI.XamlHost">
       <Version>6.1.2</Version>
     </PackageReference>

@@ -30,6 +30,9 @@
         {
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.confirmCameraButton = new System.Windows.Forms.Button();
+            this.previewBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -51,15 +54,36 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // confirmCameraButton
+            // 
+            this.confirmCameraButton.Location = new System.Drawing.Point(140, 38);
+            this.confirmCameraButton.Name = "confirmCameraButton";
+            this.confirmCameraButton.Size = new System.Drawing.Size(75, 23);
+            this.confirmCameraButton.TabIndex = 2;
+            this.confirmCameraButton.Text = "Confirm";
+            this.confirmCameraButton.UseVisualStyleBackColor = true;
+            this.confirmCameraButton.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // previewBox
+            // 
+            this.previewBox.Location = new System.Drawing.Point(244, 38);
+            this.previewBox.Name = "previewBox";
+            this.previewBox.Size = new System.Drawing.Size(509, 381);
+            this.previewBox.TabIndex = 3;
+            this.previewBox.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.previewBox);
+            this.Controls.Add(this.confirmCameraButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.previewBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -68,6 +92,8 @@
 
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button confirmCameraButton;
+        private System.Windows.Forms.PictureBox previewBox;
     }
 }
 
