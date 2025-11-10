@@ -9,3 +9,16 @@ C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.csproj.CoreCompileIn
 C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.exe
 C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.pdb
 C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.exe.config
+C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.csproj.SuggestedBindingRedirects.cache
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Microsoft.Toolkit.Win32.UI.XamlHost.xml
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\AForge.dll
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\AForge.Video.dll
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\AForge.Video.DirectShow.dll
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Microsoft.Toolkit.Win32.UI.XamlHost.Managed.dll
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Microsoft.Toolkit.Win32.UI.XamlHost.Managed.pdb
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Microsoft.Toolkit.Wpf.UI.XamlHost.dll
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Microsoft.Toolkit.Wpf.UI.XamlHost.pdb
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Microsoft.Toolkit.Win32.UI.XamlHost.winmd
+C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.csproj.Up2Date
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Microsoft.Toolkit.Forms.UI.XamlHost.dll
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Microsoft.Toolkit.Forms.UI.XamlHost.pdb

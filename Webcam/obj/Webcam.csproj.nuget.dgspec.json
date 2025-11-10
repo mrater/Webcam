@@ -44,15 +44,36 @@
       "frameworks": {
         "net472": {
           "dependencies": {
+            "AForge.Video": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
+            "AForge.Video.DirectShow": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
+            "Microsoft.Toolkit.Forms.UI.XamlHost": {
+              "target": "Package",
+              "version": "[6.1.2, )"
+            },
             "Microsoft.Toolkit.Wpf.UI.XamlHost": {
               "target": "Package",
               "version": "[6.1.2, )"
+            },
+            "Microsoft.VCRTForwarders.140": {
+              "target": "Package",
+              "version": "[1.0.6, )"
             },
             "Microsoft.Windows.SDK.Contracts": {
               "target": "Package",
               "version": "[10.0.26100.6901, )"
             }
-          }
+          },
+          "imports": [
+            "uap10.0.18362"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
         }
       },
       "runtimes": {
