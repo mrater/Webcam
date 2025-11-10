@@ -1,109 +1,190 @@
-﻿namespace Webcam
+using AForge.Video;
+using AForge.Video.DirectShow;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Linq;
+using System.Management;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Windows.Devices.Enumeration;
+using Windows.Foundation;
+using Windows.Media;
+using Windows.Media.Capture;
+using Windows.Media.Core;
+using Windows.Media.Playback;
+using Windows.UI.Xaml;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using AForge.Video;
+using AForge.Video.DirectShow;
+using Accord.Video.VFW;
+using AForge.Imaging.Filters;
+
+namespace Webcam
 {
-    partial class Form1
+    public partial class Form1 : Form
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        VideoCaptureDevice videoSource;
+        private FilterInfoCollection videoDevices;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        private bool isGray = false;
+        private Accord.Video.FFMPEG.VideoFileWriter videoWriter;
+        private bool isRecording = false;
+
+        private MediaCapture _mediaCapture;
+        private MediaPlayer _mediaPlayer;
+
+        private Windows.UI.Xaml.Controls.SwapChainPanel _swapChainPanel;
+
+        public Form1()
         {
-            if (disposing && (components != null))
+            InitializeComponent();
+            loadWebCamPreview();
+
+        }
+        private async void loadWebCamPreview() {
+            
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("Selected index changed");
+        }
+        async Task updateDeviceList()
+        {
+            Console.WriteLine("Searching for devices...");
+            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            Console.WriteLine("Found " + videoDevices.Count + " video devices.");
+        }
+
+        private async Task refreshClick()
+        {
+            await updateDeviceList();
+            comboBox1.DataSource = videoDevices;
+            comboBox1.DisplayMember = "Name";
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            refreshClick();
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            videoSource = new VideoCaptureDevice(videoDevices[comboBox1.SelectedIndex].MonikerString);
+            videoSource.NewFrame += new NewFrameEventHandler(Video_NewFrame);
+            videoSource.Start();
+        }
+
+        private void Video_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
+
+            if (isGray)
             {
-                components.Dispose();
+                Grayscale filter = new Grayscale(0.299, 0.587, 0.114);
+                bitmap = filter.Apply(bitmap);
             }
-            base.Dispose(disposing);
+            if (isRecording && videoWriter != null)
+            {
+                videoWriter.WriteVideoFrame(bitmap);
+            }
+
+            previewBox.Image = bitmap;
         }
 
-        #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
+        private void buttonPhoto_Click(object sender, EventArgs e)
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.confirmCameraButton = new System.Windows.Forms.Button();
-            this.previewBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 12);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(140, 9);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Refresh";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // confirmCameraButton
-            // 
-            this.confirmCameraButton.Location = new System.Drawing.Point(140, 38);
-            this.confirmCameraButton.Name = "confirmCameraButton";
-            this.confirmCameraButton.Size = new System.Drawing.Size(75, 23);
-            this.confirmCameraButton.TabIndex = 2;
-            this.confirmCameraButton.Text = "Confirm";
-            this.confirmCameraButton.UseVisualStyleBackColor = true;
-            this.confirmCameraButton.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // previewBox
-            // 
-            this.previewBox.Location = new System.Drawing.Point(244, 38);
-            this.previewBox.Name = "previewBox";
-            this.previewBox.Size = new System.Drawing.Size(509, 381);
-            this.previewBox.TabIndex = 3;
-            this.previewBox.TabStop = false;
-            // 
-            // photo
-            // 
-            this.photo.Location = new System.Drawing.Point(366, 18);
-            this.photo.Name = "photo";
-            this.photo.Size = new System.Drawing.Size(75, 32);
-            this.photo.TabIndex = 4;
-            this.photo.Text = "Zdjecie";
-            this.photo.UseVisualStyleBackColor = true;
-            this.photo.Click += new System.EventHandler(this.buttonPhoto_Click);
-            // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.previewBox);
-            this.Controls.Add(this.confirmCameraButton);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox1);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.previewBox)).EndInit();
-            this.ResumeLayout(false);
+            try
+            {
+                if (previewBox.Image != null)
+                {
+                    using (SaveFileDialog saveDialog = new SaveFileDialog())
+                    {
+                        saveDialog.Filter = "Pliki JPEG (*.jpg)|*.jpg|Pliki PNG (*.png)|*.png";
+                        saveDialog.Title = "Zapisz zdjęcie z kamerki";
+                        saveDialog.FileName = "zdjecie_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
 
+                        if (saveDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            previewBox.Image.Save(saveDialog.FileName);
+                            MessageBox.Show("Zdjęcie zapisane pomyślnie!", "Sukces",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Brak obrazu z kamerki!", "Błąd",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd przy zapisie zdjęcia: " + ex.Message,
+                    "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void buttonGray_Click(object sender, EventArgs e)
+        {
+            isGray = !isGray; // przełączanie trybu
+            if (isGray)
+            {
+                buttonGray.Text = "Kolorowy";
+            }
+            else
+            {
+                buttonGray.Text = "Czarno-biały";
+            }
         }
 
-        #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button confirmCameraButton;
-        private System.Windows.Forms.PictureBox previewBox;
+        private void buttonRecord_Click(object sender, EventArgs e)
+        {
+            if (!isRecording)
+            {
+                if (previewBox.Image == null)
+                {
+                    MessageBox.Show("Najpierw uruchom kamerę!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                using (SaveFileDialog saveDialog = new SaveFileDialog())
+                {
+                    saveDialog.Filter = "Pliki AVI (*.avi)|*.avi";
+                    saveDialog.Title = "Zapisz nagranie wideo";
+                    saveDialog.FileName = "nagranie_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        videoWriter = new Accord.Video.FFMPEG.VideoFileWriter();
+                        Bitmap firstFrame = new Bitmap(previewBox.Image);
+                        videoWriter.Open(saveDialog.FileName, firstFrame.Width, firstFrame.Height, 25, Accord.Video.FFMPEG.VideoCodec.MPEG4);
+                        firstFrame.Dispose();
+
+                        isRecording = true;
+                        buttonRecord.Text = "Stop";
+                    }
+                }
+            }
+            else
+            {
+                // Zatrzymanie nagrywania
+                isRecording = false;
+                videoWriter.Close();
+                videoWriter.Dispose();
+                videoWriter = null;
+                buttonRecord.Text = "Record";
+
+                MessageBox.Show("Nagranie zakończone!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+
     }
 }
-
