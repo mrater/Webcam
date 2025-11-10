@@ -1,4 +1,4 @@
-﻿using AForge.Video;
+using AForge.Video;
 using AForge.Video.DirectShow;
 using System;
 using System.Collections.Generic;
@@ -21,6 +21,8 @@ using Windows.UI.Xaml;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using AForge.Video;
 using AForge.Video.DirectShow;
+using Accord.Video.VFW;
+using AForge.Imaging.Filters;
 
 namespace Webcam
 {
@@ -28,6 +30,10 @@ namespace Webcam
     {
         VideoCaptureDevice videoSource;
         private FilterInfoCollection videoDevices;
+
+        private bool isGray = false;
+        private Accord.Video.FFMPEG.VideoFileWriter videoWriter;
+        private bool isRecording = false;
 
         private MediaCapture _mediaCapture;
         private MediaPlayer _mediaPlayer;
@@ -68,17 +74,29 @@ namespace Webcam
             refreshClick();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
+        private void button2_Click(object sender, EventArgs e) {
             videoSource = new VideoCaptureDevice(videoDevices[comboBox1.SelectedIndex].MonikerString);
             videoSource.NewFrame += new NewFrameEventHandler(Video_NewFrame);
             videoSource.Start();
         }
+
         private void Video_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
-            previewBox.Image = bitmap; // pictureBox1 – kontrolka z formularza
+
+            if (isGray)
+            {
+                Grayscale filter = new Grayscale(0.299, 0.587, 0.114);
+                bitmap = filter.Apply(bitmap);
+            }
+            if (isRecording && videoWriter != null)
+            {
+                videoWriter.WriteVideoFrame(bitmap);
+            }
+
+            previewBox.Image = bitmap;
         }
+
 
         private void buttonPhoto_Click(object sender, EventArgs e)
         {
@@ -112,5 +130,61 @@ namespace Webcam
                     "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void buttonGray_Click(object sender, EventArgs e)
+        {
+            isGray = !isGray; // przełączanie trybu
+            if (isGray)
+            {
+                buttonGray.Text = "Kolorowy";
+            }
+            else
+            {
+                buttonGray.Text = "Czarno-biały";
+            }
+        }
+
+
+        private void buttonRecord_Click(object sender, EventArgs e)
+        {
+            if (!isRecording)
+            {
+                if (previewBox.Image == null)
+                {
+                    MessageBox.Show("Najpierw uruchom kamerę!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                using (SaveFileDialog saveDialog = new SaveFileDialog())
+                {
+                    saveDialog.Filter = "Pliki AVI (*.avi)|*.avi";
+                    saveDialog.Title = "Zapisz nagranie wideo";
+                    saveDialog.FileName = "nagranie_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        videoWriter = new Accord.Video.FFMPEG.VideoFileWriter();
+                        Bitmap firstFrame = new Bitmap(previewBox.Image);
+                        videoWriter.Open(saveDialog.FileName, firstFrame.Width, firstFrame.Height, 25, Accord.Video.FFMPEG.VideoCodec.MPEG4);
+                        firstFrame.Dispose();
+
+                        isRecording = true;
+                        buttonRecord.Text = "Stop";
+                    }
+                }
+            }
+            else
+            {
+                // Zatrzymanie nagrywania
+                isRecording = false;
+                videoWriter.Close();
+                videoWriter.Dispose();
+                videoWriter = null;
+                buttonRecord.Text = "Record";
+
+                MessageBox.Show("Nagranie zakończone!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+
     }
 }
