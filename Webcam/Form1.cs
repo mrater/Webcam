@@ -79,5 +79,38 @@ namespace Webcam
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
             previewBox.Image = bitmap; // pictureBox1 – kontrolka z formularza
         }
+
+        private void buttonPhoto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (previewBox.Image != null)
+                {
+                    using (SaveFileDialog saveDialog = new SaveFileDialog())
+                    {
+                        saveDialog.Filter = "Pliki JPEG (*.jpg)|*.jpg|Pliki PNG (*.png)|*.png";
+                        saveDialog.Title = "Zapisz zdjęcie z kamerki";
+                        saveDialog.FileName = "zdjecie_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+
+                        if (saveDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            previewBox.Image.Save(saveDialog.FileName);
+                            MessageBox.Show("Zdjęcie zapisane pomyślnie!", "Sukces",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Brak obrazu z kamerki!", "Błąd",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd przy zapisie zdjęcia: " + ex.Message,
+                    "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
