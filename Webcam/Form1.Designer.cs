@@ -72,6 +72,16 @@
             this.previewBox.TabIndex = 3;
             this.previewBox.TabStop = false;
             // 
+            // photo
+            // 
+            this.photo.Location = new System.Drawing.Point(366, 18);
+            this.photo.Name = "photo";
+            this.photo.Size = new System.Drawing.Size(75, 32);
+            this.photo.TabIndex = 4;
+            this.photo.Text = "Zdjecie";
+            this.photo.UseVisualStyleBackColor = true;
+            this.photo.Click += new System.EventHandler(this.buttonPhoto_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
