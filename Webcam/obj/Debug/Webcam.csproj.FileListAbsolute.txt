@@ -1,0 +1,11 @@
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Webcam.exe.config
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Webcam.exe
+C:\Users\Maciek\source\repos\Webcam\Webcam\bin\Debug\Webcam.pdb
+C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.csproj.AssemblyReference.cache
+C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.Form1.resources
+C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.Properties.Resources.resources
+C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.csproj.GenerateResource.cache
+C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.csproj.CoreCompileInputs.cache
+C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.exe
+C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.pdb
+C:\Users\Maciek\source\repos\Webcam\Webcam\obj\Debug\Webcam.exe.config
