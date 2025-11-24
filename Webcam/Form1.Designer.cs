@@ -32,12 +32,18 @@ namespace Webcam
             this.button1 = new System.Windows.Forms.Button();
             this.confirmCameraButton = new System.Windows.Forms.Button();
             this.previewBox = new System.Windows.Forms.PictureBox();
+
             this.label1 = new System.Windows.Forms.Label();
             this.colorDeltaLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+
+            this.photo = new System.Windows.Forms.Button();
+            this.buttonGray = new System.Windows.Forms.Button();
+            this.buttonRecord = new System.Windows.Forms.Button();
+
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -83,6 +89,7 @@ namespace Webcam
             this.previewBox.TabIndex = 3;
             this.previewBox.TabStop = false;
             // 
+
             // label1
             // 
             this.label1.AutoSize = true;
@@ -145,18 +152,55 @@ namespace Webcam
             this.label4.Size = new System.Drawing.Size(68, 20);
             this.label4.TabIndex = 10;
             this.label4.Text = "Nieczuły";
+
+            // photo
+            // 
+            this.photo.Location = new System.Drawing.Point(366, 14);
+            this.photo.Name = "photo";
+            this.photo.Size = new System.Drawing.Size(75, 36);
+            this.photo.TabIndex = 4;
+            this.photo.Text = "Zdjecie";
+            this.photo.UseVisualStyleBackColor = true;
+            this.photo.Click += new System.EventHandler(this.buttonPhoto_Click);
+            // 
+            // buttonGray
+            // 
+            this.buttonGray.Location = new System.Drawing.Point(199, 101);
+            this.buttonGray.Name = "buttonGray";
+            this.buttonGray.Size = new System.Drawing.Size(132, 46);
+            this.buttonGray.TabIndex = 5;
+            this.buttonGray.Text = "Czarno/Biały";
+            this.buttonGray.UseVisualStyleBackColor = true;
+            this.buttonGray.Click += new System.EventHandler(this.buttonGray_Click);
+            // 
+            // buttonRecord
+            // 
+            this.buttonRecord.Location = new System.Drawing.Point(543, 14);
+            this.buttonRecord.Name = "buttonRecord";
+            this.buttonRecord.Size = new System.Drawing.Size(123, 36);
+            this.buttonRecord.TabIndex = 6;
+            this.buttonRecord.Text = "Nagrywanie";
+            this.buttonRecord.UseVisualStyleBackColor = true;
+            this.buttonRecord.Click += new System.EventHandler(this.buttonRecord_Click);
+
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
+
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.colorDeltaLabel);
             this.Controls.Add(this.label1);
+
+            this.Controls.Add(this.buttonRecord);
+            this.Controls.Add(this.buttonGray);
+            this.Controls.Add(this.photo);
+
             this.Controls.Add(this.previewBox);
             this.Controls.Add(this.confirmCameraButton);
             this.Controls.Add(this.button1);
@@ -177,12 +221,18 @@ namespace Webcam
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button confirmCameraButton;
         private System.Windows.Forms.PictureBox previewBox;
+
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label colorDeltaLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+
+        private System.Windows.Forms.Button photo;
+        private System.Windows.Forms.Button buttonGray;
+        private System.Windows.Forms.Button buttonRecord;
+
     }
 }
 
