@@ -43,6 +43,7 @@ namespace Webcam
             this.photo = new System.Windows.Forms.Button();
             this.buttonGray = new System.Windows.Forms.Button();
             this.buttonRecord = new System.Windows.Forms.Button();
+
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +89,6 @@ namespace Webcam
             this.previewBox.TabIndex = 3;
             this.previewBox.TabStop = false;
             // 
-<<<<<<< HEAD
             // label1
             // 
             this.label1.AutoSize = true;
@@ -151,7 +151,6 @@ namespace Webcam
             this.label4.Size = new System.Drawing.Size(68, 20);
             this.label4.TabIndex = 10;
             this.label4.Text = "Nieczuły";
-=======
             // photo
             // 
             this.photo.Location = new System.Drawing.Point(366, 14);
@@ -181,25 +180,23 @@ namespace Webcam
             this.buttonRecord.Text = "Nagrywanie";
             this.buttonRecord.UseVisualStyleBackColor = true;
             this.buttonRecord.Click += new System.EventHandler(this.buttonRecord_Click);
->>>>>>> screenshots
+
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
-<<<<<<< HEAD
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.colorDeltaLabel);
             this.Controls.Add(this.label1);
-=======
             this.Controls.Add(this.buttonRecord);
             this.Controls.Add(this.buttonGray);
             this.Controls.Add(this.photo);
->>>>>>> screenshots
+
             this.Controls.Add(this.previewBox);
             this.Controls.Add(this.confirmCameraButton);
             this.Controls.Add(this.button1);
@@ -220,18 +217,15 @@ namespace Webcam
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button confirmCameraButton;
         private System.Windows.Forms.PictureBox previewBox;
-<<<<<<< HEAD
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label colorDeltaLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-=======
         private System.Windows.Forms.Button photo;
         private System.Windows.Forms.Button buttonGray;
         private System.Windows.Forms.Button buttonRecord;
->>>>>>> screenshots
     }
 }
 

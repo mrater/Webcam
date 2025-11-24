@@ -32,13 +32,10 @@ namespace Webcam
         VideoCaptureDevice videoSource;
         private FilterInfoCollection videoDevices;
 
-<<<<<<< HEAD
-        Bitmap previousFrame;
-=======
         private bool isGray = false;
         private Accord.Video.FFMPEG.VideoFileWriter videoWriter;
         private bool isRecording = false;
->>>>>>> screenshots
+
 
         private MediaCapture _mediaCapture;
         private MediaPlayer _mediaPlayer;
@@ -88,157 +85,30 @@ namespace Webcam
             videoSource.Start();
         }
 
-<<<<<<< HEAD
-        int frame = 0;
-
-        private void Video_NewFrame(object sender, NewFrameEventArgs eventArgs) {
-
-            Bitmap bitmap = new Bitmap(eventArgs.Frame);
-            Invoke(new Action(() => {
-                previewBox.Image = bitmap; // pictureBox1 – kontrolka z formularza
-            }));
-
-
-            if (frame < 20)
-            {
-                frame++;
-                return;
-            }
-            frame = 0;
-            Invoke(new Action(() =>
-            {
-                if (bitmap.Width == previousFrame.Width && bitmap.Height == previousFrame.Height)
-                {
-                    refreshDeltaCalculate(bitmap, previousFrame);
-                }
-            }));
-            previousFrame = bitmap;
-        }
-
-        Bitmap asGrayscale(Bitmap bitmap)
-        {
-            // Source - https://stackoverflow.com/a
-            // Posted by Asad, modified by community. See post 'Timeline' for change history
-            // Retrieved 2025-11-10, License - CC BY-SA 4.0
-            Bitmap c;
-            lock (bitmap)
-            {
-                c = new Bitmap(bitmap);
-            }
-            int x, y;
-
-            // Loop through the images pixels to reset color.
-            for (x = 0; x < c.Width; x++)
-            {
-                for (y = 0; y < c.Height; y++)
-                {
-                    Color pixelColor = c.GetPixel(x, y);
-                    Color newColor = Color.FromArgb(pixelColor.R, 0, 0);
-                    c.SetPixel(x, y, newColor); // Now greyscale
-                }
-            }
-            return c;
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        int abs(int a)
-        {
-            if (a < 0) return -a;
-            return a;
-        }
-        long getGrayscaleDifference(Bitmap b1, Bitmap b2)
-        {
-            Bitmap b1g = new Bitmap(b1);
-            Bitmap b2g = new Bitmap(b2);
-            lock (b1)
-            {
-                b1g = asGrayscale(b1g);
-            }
-            lock (b2)
-            {
-                b2g = asGrayscale(b2g);
-            }
-            long total_difference = 0;
-            for (int i = 0; i < b1.Width; i++)
-            {
-                for (int j = 0; j < b1.Height; j++)
-                {
-                    total_difference += abs(b1g.GetPixel(i, j).ToArgb() - b2g.GetPixel(i, j).ToArgb());
-                }
-            }
-            return total_difference / (b1.Width * b1.Height);
-        }
-
-        void refreshDeltaCalculate(Bitmap currentFrame, Bitmap previousFrame)
-        {
-            long delta = getGrayscaleDifference(currentFrame, previousFrame);
-
-            Invoke(new Action(() =>
-            {
-                //colorDeltaLabel.Text = delta.ToString();
-                if (delta > threshold)
-                {
-                    colorDeltaLabel.Text = "ACHTUNG";
-                    colorDeltaLabel.ForeColor = Color.Red;
-                } else
-                {
-                    colorDeltaLabel.Text = "Spokój";
-                    colorDeltaLabel.ForeColor = Color.Blue;
-                }
-            }));
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-            long newThreshold = trackBar1.Value;
-            threshold = newThreshold;
-=======
         private void Video_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
 
+        private void Video_NewFrame(object sender, NewFrameEventArgs eventArgs) {
+
+            Bitmap bitmap = new Bitmap(eventArgs.Frame);
             if (isGray)
             {
                 Grayscale filter = new Grayscale(0.299, 0.587, 0.114);
                 bitmap = filter.Apply(bitmap);
             }
+
+            Invoke(new Action(() => {
+                previewBox.Image = bitmap; // pictureBox1 – kontrolka z formularza
+            }));
+
+
             if (isRecording && videoWriter != null)
             {
                 videoWriter.WriteVideoFrame(bitmap);
             }
 
             previewBox.Image = bitmap;
->>>>>>> screenshots
         }
 
 
